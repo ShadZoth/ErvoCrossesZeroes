@@ -4,8 +4,6 @@ import ru.hse.se.g272.ervo.ooaip.Form;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,21 +33,15 @@ public class ChooseForm extends Form {
         main.add(new JLabel("Choose action"));
         JPanel buttons = new JPanel(new GridLayout(1, 2));
         JButton createServerButton = new JButton("Create server");
-        createServerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent event) {
-                setVisible(false);
-                createServer();
-            }
+        createServerButton.addActionListener(event -> {
+            setVisible(false);
+            createServer();
         });
         buttons.add(createServerButton);
         JButton joinGameButton = new JButton("Join game");
-        joinGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent event) {
-                setVisible(false);
-                joinGame();
-            }
+        joinGameButton.addActionListener(event -> {
+            setVisible(false);
+            joinGame();
         });
         buttons.add(joinGameButton);
         main.add(buttons);
@@ -63,9 +55,7 @@ public class ChooseForm extends Form {
         try {
             invoker.setClientSocket(new Socket(getHostnameFromUser(),
                     getPortFromUser()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

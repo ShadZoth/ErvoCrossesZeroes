@@ -2,7 +2,7 @@ package ru.hse.se.g272.ervo.ooaip.crosszeros;
 
 import ru.hse.se.g272.ervo.ooaip.Form;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -81,21 +81,18 @@ public class CrossZerosForm extends Form {
      */
     private void waitTurn() {
         setTurn(false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    repaint();
-                    String msg = getIn().readLine();
-                    Coordinates coordinates
-                            = Coordinates.parseCoordinates(msg);
-                    getGame().placeZero(coordinates);
-                    repaint();
-                    getGame().checkWin();
-                    setTurn(true);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        new Thread(() -> {
+            try {
+                repaint();
+                String msg = getIn().readLine();
+                Coordinates coordinates
+                        = Coordinates.parseCoordinates(msg);
+                getGame().placeZero(coordinates);
+                repaint();
+                getGame().checkWin();
+                setTurn(true);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
     }
@@ -106,7 +103,7 @@ public class CrossZerosForm extends Form {
      */
     public static void main(final String[] args) {
         CrossZerosForm crossZerosForm = new CrossZerosForm();
-        crossZerosForm.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        crossZerosForm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         crossZerosForm.setTitle("Cross-zeros");
         crossZerosForm.setDefaultSize(HALFSCREEN);
         crossZerosForm.setVisible(true);

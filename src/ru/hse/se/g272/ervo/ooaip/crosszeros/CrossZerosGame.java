@@ -1,12 +1,9 @@
 package ru.hse.se.g272.ervo.ooaip.crosszeros;
 
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.PrintWriter;
-import java.util.Random;
 
 /**
  * Cross-Zeros Game.
@@ -38,7 +35,7 @@ public class CrossZerosGame extends JComponent {
 
     /**
      * Creates a game.
-     * @param invoker
+     * @param invoker invoker
      */
     public CrossZerosGame(CrossZerosForm invoker) {
         this.invoker = invoker;
@@ -264,43 +261,6 @@ public class CrossZerosGame extends JComponent {
                 && x < section.getRightBound()
                 && y > section.getTopBound()
                 && y < section.getBottomBound();
-    }
-
-    /**
-     * Places zero in random section, if possible.
-     * @return if zero was placed
-     */
-    public final boolean tryToPlaceZero() {
-        if (!full()) {
-            Random random = new Random();
-            int i = random.nextInt(COUNT);
-            int j = random.nextInt(COUNT);
-            if (getSection(i, j).getValue() == SectionValue.EMPTY) {
-                getSection(i, j).setValue(SectionValue.ZERO);
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Stalemate");
-            clear();
-            return true;
-        }
-    }
-
-    /**
-     * Checks if all sections are not empty.
-     * @return if all sections are not empty
-     */
-    private boolean full() {
-        for (int i = 0; i < COUNT; i++) {
-            for (int j = 0; j < COUNT; j++) {
-                if (getSection(i, j).getValue() == SectionValue.EMPTY) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public void placeZero(Coordinates coordinates) {
